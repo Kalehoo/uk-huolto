@@ -4,7 +4,7 @@ export default function MaintenancePage() {
   const targetDate = new Date("2026-06-09T10:00:00+02:00");
 
   const calculateTimeLeft = () => {
-    const difference = targetDate - new Date();
+	const difference = targetDate.getTime() - Date.now();
 
     if (difference <= 0) {
       return {
