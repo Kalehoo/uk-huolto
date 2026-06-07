@@ -1,45 +1,56 @@
-#root {
-	max-width: 1280px;
-	margin: 0 auto;
-	padding: 2rem;
-	text-align: center;
+.maintenance-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f7f8fa;
+  padding: 2rem;
 }
 
-.logo {
-	height: 6em;
-	padding: 1.5em;
-	will-change: filter;
-	transition: filter 300ms;
-}
-.logo:hover {
-	filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-	filter: drop-shadow(0 0 2em #61dafbaa);
-}
-.logo.cloudflare:hover {
-	filter: drop-shadow(0 0 2em #f6821faa);
+.maintenance-card {
+  max-width: 600px;
+  width: 100%;
+  background: white;
+  padding: 3rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
-@keyframes logo-spin {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
+.maintenance-card h1 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-	a:nth-of-type(2) .logo {
-		animation: logo-spin infinite 20s linear;
-	}
+.maintenance-card p {
+  color: #555;
+  line-height: 1.6;
 }
 
-.card {
-	padding: 2em;
+.countdown {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 2rem 0;
 }
 
-.read-the-docs {
-	color: #888;
+.countdown-item {
+  min-width: 100px;
+}
+
+.countdown-item span {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.countdown-item small {
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.maintenance-date {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
 }
