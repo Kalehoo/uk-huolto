@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-export default function MaintenancePage() {
+export default function App() {
   const targetDate = new Date("2026-06-09T10:00:00+02:00");
 
   const calculateTimeLeft = () => {
