@@ -38,7 +38,7 @@ export default function MaintenancePage() {
   return (
     <div className="maintenance-page">
       <div className="maintenance-card">
-		<img src="flyer3.png"></img>
+		<img src="flyer3.png" className="flyer-front"></img>
         <h1>Sivustoa päivitetään</h1>
 
         <p>
