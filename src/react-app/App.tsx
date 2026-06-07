@@ -1,66 +1,73 @@
-// src/App.tsx
+import { useEffect, useState } from "react";
 
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import cloudflareLogo from "./assets/Cloudflare_Logo.svg";
-import honoLogo from "./assets/hono.svg";
-import "./App.css";
+export default function MaintenancePage() {
+  const targetDate = new Date("2026-06-09T10:00:00+02:00");
 
-function App() {
-	const [count, setCount] = useState(0);
-	const [name, setName] = useState("unknown");
+  const calculateTimeLeft = () => {
+    const difference = targetDate - new Date();
 
-	return (
-		<>
-			<div>
-				<a href="https://vite.dev" target="_blank">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://react.dev" target="_blank">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-				<a href="https://hono.dev/" target="_blank">
-					<img src={honoLogo} className="logo cloudflare" alt="Hono logo" />
-				</a>
-				<a href="https://workers.cloudflare.com/" target="_blank">
-					<img
-						src={cloudflareLogo}
-						className="logo cloudflare"
-						alt="Cloudflare logo"
-					/>
-				</a>
-			</div>
-			<h1>Vite + React + Hono + Cloudflare</h1>
-			<div className="card">
-				<button
-					onClick={() => setCount((count) => count + 1)}
-					aria-label="increment"
-				>
-					count is {count}
-				</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
-				</p>
-			</div>
-			<div className="card">
-				<button
-					onClick={() => {
-						fetch("/api/")
-							.then((res) => res.json() as Promise<{ name: string }>)
-							.then((data) => setName(data.name));
-					}}
-					aria-label="get name"
-				>
-					Name from API is: {name}
-				</button>
-				<p>
-					Edit <code>worker/index.ts</code> to change the name
-				</p>
-			</div>
-			<p className="read-the-docs">Click on the logos to learn more</p>
-		</>
-	);
+    if (difference <= 0) {
+      return {
+        days: 0,
+        hours: 0,
+        minutes: 0,
+      };
+    }
+
+    return {
+      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      hours: Math.floor(
+        (difference / (1000 * 60 * 60)) % 24
+      ),
+      minutes: Math.floor(
+        (difference / (1000 * 60)) % 60
+      ),
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="maintenance-page">
+      <div className="maintenance-card">
+        <h1>Sivustoa päivitetään</h1>
+
+        <p>
+          Sivusto on tilapäisesti poissa käytöstä huolto- ja
+          päivitystöiden vuoksi.
+        </p>
+
+        <div className="countdown">
+          <div className="countdown-item">
+            <span>{timeLeft.days}</span>
+            <small>päivää</small>
+          </div>
+
+          <div className="countdown-item">
+            <span>{timeLeft.hours}</span>
+            <small>tuntia</small>
+          </div>
+
+          <div className="countdown-item">
+            <span>{timeLeft.minutes}</span>
+            <small>minuuttia</small>
+          </div>
+        </div>
+
+        <p className="maintenance-date">
+          Arvioitu valmistumisaika:
+          <br />
+          9.6.2026 klo 10:00 (GMT+2)
+        </p>
+      </div>
+    </div>
+  );
 }
-
-export default App;
